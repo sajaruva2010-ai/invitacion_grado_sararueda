@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Invitación de Grado</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
- <style>
+  <title>Celebración de mi Graduación</title>
+  
+  <style>
     :root {
       --bg-color: #0b0b0e;
       --card-bg: #15151a;
@@ -25,40 +25,53 @@
       padding: 20px 15px 40px;
     }
 
-    .container { max-width: 600px; margin: 0 auto; }
+    .container { max-width: 450px; margin: 0 auto; }
 
     header { margin-top: 30px; margin-bottom: 25px; }
     .subtitle { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-color); }
     h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 10px 0; color: #fff; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
 
-    .music-btn {
+    /* ESTILOS DE LA PORTADA / PANTALLA DE BIENVENIDA */
+    #welcome-screen {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      background: var(--card-bg);
-      border: 2px solid var(--accent-color);
-      border-radius: 50%;
-      color: var(--accent-color);
-      font-size: 1.4rem;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #2e2616 0%, #0b0b0e 80%);
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      text-align: center;
+      padding: 20px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #welcome-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .welcome-content { max-width: 400px; }
+
+    .btn-welcome {
+      padding: 16px 30px;
+      background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
+      margin-top: 15px;
       transition: transform 0.2s;
     }
-    .music-btn:active { transform: scale(0.9); }
+    .btn-welcome:active { transform: scale(0.95); }
 
-    .countdown-title { font-size: 0.9rem; margin-top: 20px; color: var(--text-muted); letter-spacing: 1px; }
-    .timer {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 15px 0 30px;
-    }
+    /* TARJETAS Y CONTENIDO */
+    .timer { display: flex; justify-content: center; gap: 12px; margin: 15px 0 30px; }
     .time-box {
       background: rgba(21, 21, 26, 0.8);
       border: 1px solid rgba(212, 175, 55, 0.3);
@@ -93,39 +106,38 @@
       font-size: 1rem;
       margin-top: 15px;
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-      transition: transform 0.2s;
     }
-    .btn-rsvp:active { transform: scale(0.98); }
   </style>
 </head>
 <body>
 
+  <!-- 1. PORTADA QUE APARECE DE PRIMERO -->
+  <div id="welcome-screen">
+    <div class="welcome-content">
+      <p class="subtitle">Estás Invitado a</p>
+      <h1>Mi Graduación</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Toca el botón para abrir la invitación</p>
+      <button class="btn-welcome" onclick="openInvitation()">✨ Ver Invitación ✉️</button>
+    </div>
+  </div>
+
+  <!-- 2. ETIQUETA DE AUDIO PARA LA MÚSICA DE FONDO -->
+  <audio id="bg-music" src="cancion.mp3.mpeg" loop></audio>
+
+  <!-- 3. CONTENIDO PRINCIPAL DE LA INVITACIÓN -->
   <div class="container">
     <header>
-      <p class="subtitle">Celebración de</p>
-      <h1>¡Mi Graduación!</h1>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Un logro que quiero compartir contigo</p>
+      <p class="subtitle">Estás Invitado a la</p>
+      <h1>Celebración de mi Graduación</h1>
     </header>
 
-    <!-- Reproductor Invisible y Botón de Corchea Flotante -->
-    <audio id="bg-music" loop preload="auto">
-      <source src="cancion.mp3.mpeg" type="audio/mpeg">
-    </audio>
-
-    <div class="music-btn" id="music-toggle" title="Reproducir / Pausar Música">
-      ♫
-    </div>
-
-    <!-- Cuenta Regresiva -->
-    <p class="countdown-title">FALTAN SOLO:</p>
     <div class="timer">
       <div class="time-box"><span id="days">00</span><small>Días</small></div>
       <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
-      <div class="time-box"><span id="minutes">00</span><small>Minutos</small></div>
-      <div class="time-box"><span id="seconds">00</span><small>Segundos</small></div>
+      <div class="time-box"><span id="minutes">00</span><small>Min</small></div>
+      <div class="time-box"><span id="seconds">00</span><small>Seg</small></div>
     </div>
 
-    <!-- Detalles del Evento -->
     <div class="details-grid">
       <div class="card">
         <h3>📅 Fecha y Hora</h3>
@@ -138,90 +150,56 @@
       </div>
 
       <div class="card">
-        <h3>✨ Código de vestimenta ✨</h3>
-        <p>Formal / Casual</p>
+        <h3>✨ Dress Code</h3>
+        <p>Formal / Elegante</p>
       </div>
 
       <div class="card">
         <h3>✉️ Lluvia de Sobres</h3>
         <p>Tu presencia es mi mejor regalo.</p>
       </div>
-      
-      <div class="card">
-        <h3>❤️ ¿Nos acompañarás?</h3>
-        <p>Hemos guardado un espacio especial para <strong style="color: var(--accent-color);">ti</strong>.<br>
-        <small style="color: var(--text-muted);">Agradecemos que confirmes antes del 1 de Diciembre.</small></p>
-      </div>
     </div>
+    
+     <div class="card">
+        <h3>❤️ ¿Nos acompañarás?</h3>
+        <p>Hemos guardado un espacio especial para ti.<br>
+        <small style="color: var(--text-muted);">Pase válido para <strong style="color: var(--accent-color);">1 persona</strong>. Agradecemos que confirmes tu asistencia antes del 1 de Diciembre.</small></p>
+      </div>
 
-    <!-- Confirmación de Asistencia -->
     <a href="https://forms.gle/wp6hsEj7euDXHxnL9" target="_blank" class="btn-rsvp">
-      Confirma Tu Asistencia Aquí ↗
+      Confirma tu asistencia aquí ↗
     </a>
   </div>
 
+  <!-- 4. CÓDIGO JAVASCRIPT PARA LA MÚSICA Y LA CUENTA REGRESIVA -->
   <script>
-    const audio = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-toggle');
-    let hasPlayed = false;
-
-    // Función para reproducir el audio
-    function playAudio() {
-      if (!hasPlayed) {
-        audio.play().then(() => {
-          hasPlayed = true;
-          musicBtn.innerHTML = "🎶";
-        }).catch(() => {
-          // Si el navegador bloquea la reproducción automática
-        });
+    // Función para ocultar la portada y reproducir la música
+    function openInvitation() {
+      document.getElementById('welcome-screen').classList.add('hidden');
+      const music = document.getElementById('bg-music');
+      if (music) {
+        music.play().catch(e => console.log("Audio no reproducido:", e));
       }
     }
 
-    // Activar al tocar cualquier parte de la pantalla por primera vez
-    document.addEventListener('click', function(e) {
-      if (e.target !== musicBtn) {
-        playAudio();
-      }
-    }, { once: true });
-
-    // Permitir al usuario reproducir o pausar con el botón flotante de la corchea
-    musicBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      if (audio.paused) {
-        audio.play();
-        hasPlayed = true;
-        musicBtn.innerHTML = "🎶";
-      } else {
-        audio.pause();
-        musicBtn.innerHTML = "♫";
-      }
-    });
-
-    // Cuenta regresiva
+    // Configuración de la fecha para el 13 de Diciembre de 2026
     const eventDate = new Date(2026, 11, 13, 18, 0, 0).getTime();
 
-    const updateCountdown = () => {
+    const countdown = setInterval(() => {
       const now = new Date().getTime();
       const distance = eventDate - now;
 
       if (distance < 0) {
-        document.querySelector('.timer').innerHTML = "<p>¡Llegó el gran día!</p>";
+        clearInterval(countdown);
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById('days').innerText = days.toString().padStart(2, '0');
-      document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-      document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-      document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
-    };
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+      document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+    }, 1000);
   </script>
+
 </body>
 </html>
