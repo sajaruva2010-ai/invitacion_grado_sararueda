@@ -5,32 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Invitación de Grado</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
+ <style>
     :root {
-      --bg-color: #0f0f11;
-      --card-bg: #18181c;
+      --bg-color: #0b0b0e;
+      --card-bg: #15151a;
       --accent-color: #d4af37;
       --text-color: #f0f0f0;
       --text-muted: #a0a0a0;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-   body {
-  background: radial-gradient(circle at top, #23232c 0%, #0f0f11 70%);
-  background-attachment: fixed;
-  color: var(--text-color);
-  font-family: 'Montserrat', sans-serif;
-  text-align: center;
-  padding: 20px 15px 40px;
-}
+    
+    body {
+      background: radial-gradient(circle at top, #2e2616 0%, #0b0b0e 65%);
+      background-attachment: fixed;
+      color: var(--text-color);
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      padding: 20px 15px 40px;
+    }
 
     .container { max-width: 600px; margin: 0 auto; }
 
     header { margin-top: 30px; margin-bottom: 25px; }
     .subtitle { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-color); }
-    h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 10px 0; color: #fff; }
+    h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 10px 0; color: #fff; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
 
-    /* Botón flotante de Música (Corchea en esquina inferior derecha) */
     .music-btn {
       position: fixed;
       bottom: 20px;
@@ -46,13 +46,13 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
       z-index: 1000;
-      transition: transform 0.2s, background-color 0.2s;
+      transition: transform 0.2s;
     }
     .music-btn:active { transform: scale(0.9); }
 
-    .countdown-title { font-size: 0.9rem; margin-top: 20px; color: var(--text-muted); }
+    .countdown-title { font-size: 0.9rem; margin-top: 20px; color: var(--text-muted); letter-spacing: 1px; }
     .timer {
       display: flex;
       justify-content: center;
@@ -60,36 +60,39 @@
       margin: 15px 0 30px;
     }
     .time-box {
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(21, 21, 26, 0.8);
+      border: 1px solid rgba(212, 175, 55, 0.3);
       padding: 12px 10px;
-      border-radius: 8px;
+      border-radius: 10px;
       min-width: 70px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
     .time-box span { display: block; font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
     .time-box small { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
-    .details-grid { display: flex; flex-direction: column; gap: 15px; margin: 25px 0; }
+    .details-grid { display: flex; flex-direction: column; gap: 18px; margin: 25px 0; }
     .card {
       background: var(--card-bg);
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 22px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
     }
-    .card h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent-color); margin-bottom: 8px; }
-    .card p { font-size: 0.95rem; line-height: 1.4; }
+    .card h3 { font-family: 'Cinzel', serif; font-size: 1.15rem; color: var(--accent-color); margin-bottom: 8px; }
+    .card p { font-size: 0.95rem; line-height: 1.5; }
 
     .btn-rsvp {
       display: inline-block;
       width: 100%;
       padding: 16px;
-      background: var(--accent-color);
+      background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
       color: #000;
       font-weight: 600;
       text-decoration: none;
       border-radius: 30px;
       font-size: 1rem;
       margin-top: 15px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
       transition: transform 0.2s;
     }
     .btn-rsvp:active { transform: scale(0.98); }
