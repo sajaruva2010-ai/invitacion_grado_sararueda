@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Invitación de Grado</title>
+  <title>Invitación a mi Grado</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
- <style>
+  <style>
     :root {
       --bg-color: #0b0b0e;
       --card-bg: #15151a;
@@ -31,6 +31,46 @@
     .subtitle { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-color); }
     h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 10px 0; color: #fff; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
 
+    /* PANTALLA DE INICIO / BIENVENIDA */
+    #welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #2e2616 0%, #0b0b0e 80%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      text-align: center;
+      padding: 20px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #welcome-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .welcome-content { max-width: 400px; }
+
+    .btn-welcome {
+      padding: 16px 30px;
+      background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
+      margin-top: 20px;
+      transition: transform 0.2s;
+    }
+    .btn-welcome:active { transform: scale(0.95); }
+
+    /* BOTÓN FLOTANTE DE MÚSICA */
     .music-btn {
       position: fixed;
       bottom: 20px;
@@ -52,6 +92,7 @@
     }
     .music-btn:active { transform: scale(0.9); }
 
+    /* CUENTA REGRESIVA Y TARJETAS */
     .countdown-title { font-size: 0.9rem; margin-top: 20px; color: var(--text-muted); letter-spacing: 1px; }
     .timer {
       display: flex;
@@ -99,6 +140,16 @@
   </style>
 </head>
 <body>
+
+  <!-- PORTADA DE INICIO -->
+  <div id="welcome-screen">
+    <div class="welcome-content">
+      <p class="subtitle">Celebración de</p>
+      <h1>¡Mi Graduación!</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Un logro que quiero compartir contigo</p>
+      <button class="btn-welcome" onclick="openInvitation()">Ver Invitación</button>
+    </div>
+  </div>
 
   <div class="container">
     <header>
@@ -156,40 +207,34 @@
 
     <!-- Confirmación de Asistencia -->
     <a href="https://forms.gle/wp6hsEj7euDXHxnL9" target="_blank" class="btn-rsvp">
-      Confirma Tu Asistencia Aquí ↗
+      Confirma tu asistencia aquí ↗
     </a>
   </div>
 
   <script>
     const audio = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-toggle');
-    let hasPlayed = false;
 
-    // Función para reproducir el audio
-    function playAudio() {
-      if (!hasPlayed) {
+    // Función que se ejecuta al presionar "Ver Invitación"
+    function openInvitation() {
+      // Oculta la portada de bienvenida
+      document.getElementById('welcome-screen').classList.add('hidden');
+      
+      // Reproduce la música automáticamente al dar clic en la portada
+      if (audio) {
         audio.play().then(() => {
-          hasPlayed = true;
           musicBtn.innerHTML = "🎶";
-        }).catch(() => {
-          // Si el navegador bloquea la reproducción automática
+        }).catch(e => {
+          console.log("Audio no reproducido automáticamente:", e);
         });
       }
     }
 
-    // Activar al tocar cualquier parte de la pantalla por primera vez
-    document.addEventListener('click', function(e) {
-      if (e.target !== musicBtn) {
-        playAudio();
-      }
-    }, { once: true });
-
-    // Permitir al usuario reproducir o pausar con el botón flotante de la corchea
+    // Permitir al usuario pausar o reproducir manualmente con la corchea flotante
     musicBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       if (audio.paused) {
         audio.play();
-        hasPlayed = true;
         musicBtn.innerHTML = "🎶";
       } else {
         audio.pause();
@@ -197,8 +242,8 @@
       }
     });
 
-    // Cuenta regresiva
-    const eventDate = new Date(2026, 11, 13, 18, 0, 0).getTime();
+    // Cuenta regresiva (13 de Diciembre de 2026 a las 4:00 p. m.)
+    const eventDate = new Date(2026, 11, 13, 16, 0, 0).getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
@@ -224,4 +269,4 @@
     updateCountdown();
   </script>
 </body>
-</html>
+</html
