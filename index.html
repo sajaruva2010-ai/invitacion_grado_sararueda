@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Invitación de Grado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0f0f11;
+      --card-bg: #18181c;
+      --accent-color: #d4af37; /* Dorado elegante */
+      --text-color: #f0f0f0;
+      --text-muted: #a0a0a0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      padding: 20px 15px 40px;
+    }
+
+    .container { max-width: 600px; margin: 0 auto; }
+
+    header { margin-top: 30px; margin-bottom: 25px; }
+    .subtitle { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-color); }
+    h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 10px 0; color: #fff; }
+    
+    /* Música */
+    .music-player {
+      background: var(--card-bg);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 12px;
+      border-radius: 30px;
+      margin: 20px 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Cuenta Regresiva */
+    .countdown-title { font-size: 0.9rem; margin-top: 20px; color: var(--text-muted); }
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 15px 0 30px;
+    }
+    .time-box {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 10px;
+      border-radius: 8px;
+      min-width: 70px;
+    }
+    .time-box span { display: block; font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
+    .time-box small { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+
+    /* Tarjetas de detalles */
+    .details-grid { display: flex; flex-direction: column; gap: 15px; margin: 25px 0; }
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .card h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent-color); margin-bottom: 8px; }
+    .card p { font-size: 0.95rem; line-height: 1.4; }
+
+    /* Botón Confirmación */
+    .btn-rsvp {
+      display: inline-block;
+      width: 100%;
+      padding: 16px;
+      background: var(--accent-color);
+      color: #000;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      margin-top: 15px;
+      transition: transform 0.2s;
+    }
+    .btn-rsvp:active { transform: scale(0.98); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <p class="subtitle">Celebración de Grado</p>
+      <h1>¡Mi Graduación!</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Un logro que quiero compartir contigo</p>
+    </header>
+
+    <!-- Reproductor de Música -->
+    <div class="music-player">
+      <audio controls loop>
+        <!-- Reemplaza el enlace de src por tu canción preferida -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Tu navegador no soporta el reproductor.
+      </audio>
+    </div>
+
+    <!-- Cuenta Regresiva -->
+    <p class="countdown-title">FALTAN SOLO:</p>
+    <div class="timer">
+      <div class="time-box"><span id="days">00</span><small>Días</small></div>
+      <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
+      <div class="time-box"><span id="minutes">00</span><small>Minutos</small></div>
+      <div class="time-box"><span id="seconds">00</span><small>Segundos</small></div>
+    </div>
+
+    <!-- Detalles del Evento -->
+    <div class="details-grid">
+      <div class="card">
+        <h3>📅 Fecha y Hora</h3>
+        <p>Sábado, 28 de Noviembre de 2026<br>6:00 p. m.</p>
+      </div>
+
+      <div class="card">
+        <h3>📍 Lugar</h3>
+        <p>Salón de Eventos<br><small style="color: var(--text-muted);">Cali, Colombia</small></p>
+      </div>
+
+      <div class="card">
+        <h3>✨ Dress Code</h3>
+        <p>Formal / Elegante</p>
+      </div>
+
+      <div class="card">
+        <h3>✉️ Lluvia de Sobres</h3>
+        <p>Tu presencia es mi mejor regalo.</p>
+      </div>
+    </div>
+
+    <!-- Confirmación de Asistencia -->
+    <!-- Reemplaza la URL entre comillas por el enlace de tu Google Form -->
+    <a href="https://forms.google.com" target="_blank" class="btn-rsvp">
+      Confirmar Asistencia Aquí ↗
+    </a>
+  </div>
+
+  <script>
+    // Configura la fecha de tu grado aquí (Año, Mes-1, Día, Hora, Minuto)
+    // NOTA: En JavaScript los meses van de 0 a 11 (Noviembre es 10)
+    const eventDate = new Date(2026, 10, 28, 18, 0, 0).getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        document.querySelector('.timer').innerHTML = "<p>¡Llegó el gran día!</p>";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = days.toString().padStart(2, '0');
+      document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+    };
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
