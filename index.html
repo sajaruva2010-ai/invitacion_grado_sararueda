@@ -9,7 +9,7 @@
     :root {
       --bg-color: #0f0f11;
       --card-bg: #18181c;
-      --accent-color: #d4af37; /* Dorado elegante */
+      --accent-color: #d4af37;
       --text-color: #f0f0f0;
       --text-muted: #a0a0a0;
     }
@@ -29,7 +29,6 @@
     .subtitle { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-color); }
     h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 10px 0; color: #fff; }
     
-    /* Música */
     .music-player {
       background: var(--card-bg);
       border: 1px solid rgba(212, 175, 55, 0.3);
@@ -41,7 +40,6 @@
       gap: 10px;
     }
 
-    /* Cuenta Regresiva */
     .countdown-title { font-size: 0.9rem; margin-top: 20px; color: var(--text-muted); }
     .timer {
       display: flex;
@@ -59,7 +57,6 @@
     .time-box span { display: block; font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
     .time-box small { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
-    /* Tarjetas de detalles */
     .details-grid { display: flex; flex-direction: column; gap: 15px; margin: 25px 0; }
     .card {
       background: var(--card-bg);
@@ -70,7 +67,6 @@
     .card h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent-color); margin-bottom: 8px; }
     .card p { font-size: 0.95rem; line-height: 1.4; }
 
-    /* Botón Confirmación */
     .btn-rsvp {
       display: inline-block;
       width: 100%;
@@ -98,9 +94,8 @@
 
     <!-- Reproductor de Música -->
     <div class="music-player">
-      <audio controls loop>
-        <!-- Reemplaza el enlace de src por tu canción preferida -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+      <audio id="bg-music" autoplay loop controls>
+        <source src="cancion.mp3" type="audio/mpeg">
         Tu navegador no soporta el reproductor.
       </audio>
     </div>
@@ -118,7 +113,7 @@
     <div class="details-grid">
       <div class="card">
         <h3>📅 Fecha y Hora</h3>
-        <p>Sábado, 28 de Noviembre de 2026<br>6:00 p. m.</p>
+        <p>Sábado, 21 de Noviembre de 2026<br>6:00 p. m.</p>
       </div>
 
       <div class="card">
@@ -138,16 +133,22 @@
     </div>
 
     <!-- Confirmación de Asistencia -->
-    <!-- Reemplaza la URL entre comillas por el enlace de tu Google Form -->
     <a href="https://forms.google.com" target="_blank" class="btn-rsvp">
       Confirmar Asistencia Aquí ↗
     </a>
   </div>
 
   <script>
-    // Configura la fecha de tu grado aquí (Año, Mes-1, Día, Hora, Minuto)
-    // NOTA: En JavaScript los meses van de 0 a 11 (Noviembre es 10)
-    const eventDate = new Date(2026, 10, 28, 18, 0, 0).getTime();
+    // Reproducción automática al hacer clic en cualquier parte de la pantalla
+    document.addEventListener('click', function() {
+      const audio = document.getElementById('bg-music');
+      if (audio && audio.paused) {
+        audio.play();
+      }
+    }, { once: true });
+
+    // Cuenta regresiva
+    const eventDate = new Date(2026, 10, 21, 18, 0, 0).getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
