@@ -28,17 +28,28 @@
     header { margin-top: 30px; margin-bottom: 25px; }
     .subtitle { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-color); }
     h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; margin: 10px 0; color: #fff; }
-    
-    .music-player {
+
+    /* Botón flotante de Música (Corchea en esquina inferior derecha) */
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
       background: var(--card-bg);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      padding: 12px;
-      border-radius: 30px;
-      margin: 20px 0;
-      display: inline-flex;
+      border: 2px solid var(--accent-color);
+      border-radius: 50%;
+      color: var(--accent-color);
+      font-size: 1.4rem;
+      display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      transition: transform 0.2s, background-color 0.2s;
     }
+    .music-btn:active { transform: scale(0.9); }
 
     .countdown-title { font-size: 0.9rem; margin-top: 20px; color: var(--text-muted); }
     .timer {
@@ -92,12 +103,13 @@
       <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Un logro que quiero compartir contigo</p>
     </header>
 
-    <!-- Reproductor de Música -->
-    <div class="music-player">
-      <audio id="bg-music" autoplay loop controls>
-        <source src="cancion.mp3.mpeg" type="audio/mpeg">
-        Tu navegador no soporta el reproductor.
-      </audio>
+    <!-- Reproductor Invisible y Botón de Corchea Flotante -->
+    <audio id="bg-music" loop preload="auto">
+      <source src="cancion.mp3.mpeg" type="audio/mpeg">
+    </audio>
+
+    <div class="music-btn" id="music-toggle" title="Reproducir / Pausar Música">
+      ♫
     </div>
 
     <!-- Cuenta Regresiva -->
@@ -139,13 +151,41 @@
   </div>
 
   <script>
-    // Reproducción automática al hacer clic en cualquier parte de la pantalla
-    document.addEventListener('click', function() {
-      const audio = document.getElementById('bg-music');
-      if (audio && audio.paused) {
-        audio.play();
+    const audio = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-toggle');
+    let hasPlayed = false;
+
+    // Función para reproducir el audio
+    function playAudio() {
+      if (!hasPlayed) {
+        audio.play().then(() => {
+          hasPlayed = true;
+          musicBtn.innerHTML = "🎶";
+        }).catch(() => {
+          // Si el navegador bloquea la reproducción automática
+        });
+      }
+    }
+
+    // Activar al tocar cualquier parte de la pantalla por primera vez
+    document.addEventListener('click', function(e) {
+      if (e.target !== musicBtn) {
+        playAudio();
       }
     }, { once: true });
+
+    // Permitir al usuario reproducir o pausar con el botón flotante de la corchea
+    musicBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (audio.paused) {
+        audio.play();
+        hasPlayed = true;
+        musicBtn.innerHTML = "🎶";
+      } else {
+        audio.pause();
+        musicBtn.innerHTML = "♫";
+      }
+    });
 
     // Cuenta regresiva
     const eventDate = new Date(2026, 10, 21, 18, 0, 0).getTime();
